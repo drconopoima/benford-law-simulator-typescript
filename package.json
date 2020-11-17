@@ -1,0 +1,33 @@
+{
+  "name": "benford-law-simulator-typescript",
+  "version": "0.1.0",
+  "description": "A simulator for distributions following Benford's Law in Typescript",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drconopoima/benford-law-simulator-typescript.git"
+  },
+  "keywords": [
+    "algorithms",
+    "benford",
+    "digits",
+    "distribution",
+    "simulator",
+    "typescript"
+  ],
+  "author": "Luis Jesus Diaz Manzo",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.7",
+    "@types/yargs": "^15.0.5"
+  },
+  "dependencies": {
+    "typescript": "^3.9.5",
+    "ts-node": "^8.10.2",
+    "yargs": "~15.3.1"
+  }
+}
