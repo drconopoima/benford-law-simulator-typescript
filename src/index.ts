@@ -1,8 +1,11 @@
-const argv = require('yargs').argv
+const yargs = require('yargs')
+var bars = require('bars');
+const argv = yargs.argv
 const maxNumber:number=argv.maxnumber;
 const sampleCount:number=argv.samplecount;
 const digitCount:number=argv.digitcount;
 const minNumber:number=argv.minnumber;
+const debug:boolean=(argv.debug === "yes") ? true: false;
 
 const generateBenfordCompliantSample = function(maxNumber:number, sampleCount:number, minNumber:number=1) {
     let sample:Array<number>=[];
@@ -30,12 +33,24 @@ const getFirstNDigitsFromSample = function(sample:Array<number>, digitCount:numb
 }
 
 const benfordLaw = function(maxNumber:number, sampleCount:number, digitCount:number=1, minNumber:number=0) {
-    // console.log(`maxNumber=${maxNumber}, sampleCount=${sampleCount}, digitCount=${digitCount}, minNumber=${minNumber}`)
+    // console.log(`debug=${debug}, maxNumber=${maxNumber}, sampleCount=${sampleCount}, digitCount=${digitCount}, minNumber=${minNumber}`)
     let sample = generateBenfordCompliantSample(maxNumber=maxNumber, sampleCount=sampleCount, minNumber=minNumber);
     let arrayOfFirstNDigits=getFirstNDigitsFromSample(sample=sample, digitCount=digitCount);
     return arrayOfFirstNDigits
 }
 
-process.stdout.write(String(benfordLaw(maxNumber,sampleCount,digitCount,minNumber)) + '\n');
+let arrayOfFirstNDigits=benfordLaw(maxNumber,sampleCount,digitCount,minNumber);
+if (debug) { process.stdout.write(String(arrayOfFirstNDigits) + '\n'); }
 
+let repeatedCountsObject:any={}
+
+for ( let value of arrayOfFirstNDigits ) {
+    if (value in repeatedCountsObject) {
+        // 
+        repeatedCountsObject[value]+=1
+    } else {
+        repeatedCountsObject[value]=1
+    }
+}
+console.log(bars(repeatedCountsObject, { bar: '=', width: 20, sort: true }))
 export default { benfordLaw }
