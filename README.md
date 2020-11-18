@@ -5,26 +5,31 @@ A simulator for distributions following Benford's Law in Typescript
 ## Installation
 
 ```sh
-    git clone https://github.com/drconopoima/benford-law-simulator-typescript.git
-    cd benford-law-simulator-typescript
-    npm install
-    npm i -g ts-node
+  git clone https://github.com/drconopoima/benford-law-simulator-typescript.git
+  cd benford-law-simulator-typescript
+  npm install
+  npm i -g ts-node
 ```
 
 ## Run
 
-You can generate a random number in a range with shuf, from coreutils library
+You can assign a top of the range for the simulations manually:
 
 ```sh
-ts-node src/index.ts --maxnumber \
-  $(shuf -i 10-100000 -n 1 | tee >(xargs echo "maxnumber=" 1>&2)) \
+ts-node src/index.ts --maxnumber 10000 --digitcount 1 \
+  --samplecount 5000 --minnumber 1
+```
+
+You can also generate a random number in a range with shuf, from coreutils library, or by any other random number generator. I would recommended you use random values for the top of the range, as the Benford's law applies on data of random ranges.
+
+```sh
+ts-node src/index.ts --maxnumber $(shuf -i 10-100000 -n 1) \
   --digitcount 1 --samplecount 5000 --minnumber 1
 ```
 
 The expected output would be like the following:
 
 ```txt
-maxnumber= 10782
 1 | ==================== | 907
 2 | ===============      | 682
 3 | ==============       | 617
@@ -40,14 +45,14 @@ If you want to get the generated sample, you may set optional `--debug` paramete
 
 ```sh
 ts-node src/index.ts --debug yes --maxnumber \
-  $(shuf -i 10-100000 -n 1 | tee >(xargs echo "maxnumber=" 1>&2)) \
+  $(shuf -i 10-100000 -n 1 | tee >(xargs echo "max=" 1>&2)) \
   --digitcount 1 --samplecount 30 --minnumber 1
 ```
 
 Expected output:
 
 ```txt
-maxnumber= 53944
+max= 53944
 Simulated sample data:
 34387,19018,12742,51591,48115,262,22791,12508,45494,28791,7695,24438,\
 31766,13142,53118,38539,37112,34692,30430,11189,27668,31257,28513,\
@@ -67,15 +72,10 @@ Lead digits:
 You may generate output for the lead pair of digits as well, or any lead digit count with the option `--digitcount`
 
 ```sh
-ts-node src/index.ts --digitcount 2 --samplecount 10000 \
-  --minnumber 1 --maxnumber \
-  $(shuf -i 100-100000 -n 1 | tee >(xargs echo "maxnumber=" 1>&2))
-```
+$ ts-node src/index.ts --digitcount 2 --maxnumber \
+  $(shuf -i 100-100000 -n 1) \
+  --samplecount 10000 --minnumber 1
 
-Expected output:
-
-```txt
-maxnumber= 18616
   10 | ==================== | 566
   11 | ==================== | 562
   12 | ==================== | 556
