@@ -37,19 +37,18 @@ const getFirstNDigitsFromSample = function(sample:Array<number>, digitCount:numb
 const benfordLaw = function(maxNumber:number, sampleCount:number, digitCount:number=1, minNumber:number=0) {
     // console.log(`debug=${debug}, maxNumber=${maxNumber}, sampleCount=${sampleCount}, digitCount=${digitCount}, minNumber=${minNumber}`)
     let sample = generateBenfordCompliantSample(maxNumber=maxNumber, sampleCount=sampleCount, minNumber=minNumber);
-    if (debug) { process.stdout.write(String(sample) + '\n'); }
+    if (debug) { process.stdout.write("Simulated sample data:" + '\n' + String(sample) + '\n\n'); }
     let arrayOfFirstNDigits=getFirstNDigitsFromSample(sample=sample, digitCount=digitCount);
     return arrayOfFirstNDigits
 }
 
 let arrayOfFirstNDigits=benfordLaw(maxNumber,sampleCount,digitCount,minNumber);
-if (debug) { process.stdout.write(String(arrayOfFirstNDigits) + '\n'); }
+if (debug) { process.stdout.write("Lead digits:" + '\n' + String(arrayOfFirstNDigits) + '\n\n'); }
 
 let repeatedCountsObject:any={}
 
 for ( let value of arrayOfFirstNDigits ) {
     if (value in repeatedCountsObject) {
-        // 
         repeatedCountsObject[value]+=1
     } else {
         repeatedCountsObject[value]=1
