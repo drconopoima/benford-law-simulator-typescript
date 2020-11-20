@@ -1,8 +1,22 @@
-const yargs = require('yargs')
+#!/usr/bin/env ts-node
+
+const argv = require('yargs')
+    .usage('Usage: $0 --maxnumber A --digitcount B --samplesize C --minnumber D [--debug yes]')
+    .demandOption('maxnumber', 'Maximum value for top of the range of the sample')
+    .alias('maxnumber', 'm')
+    .demandOption('digitcount', 'Number of left-most digits from data for output')
+    .alias('digitcount','d')
+    .demandOption('samplesize', 'Number of data points to generate in sample')
+    .alias('samplesize','s')
+    .demandOption('minnumber', 'Minimum value in the range of the sample')
+    .alias('minnumber', 'n')
+    .example('$0 --maxnumber 1000 --digitcount 1 --samplesize 1000 --minnumber 1')
+    .example('$0 -d 2 -s 1000 -n 1 -m $(shuf -i 100-10000 -n 1|tee >&2|cat)')
+    .help('h')
+    .alias('h','help').argv
 var bars = require('bars');
-const argv = yargs.argv
 const maxNumber:number=argv.maxnumber;
-const sampleCount:number=argv.samplecount;
+const sampleCount:number=argv.samplesize;
 const digitCount:number=argv.digitcount;
 const minNumber:number=argv.minnumber;
 const debug:boolean=(argv.debug === "yes") ? true: false;
