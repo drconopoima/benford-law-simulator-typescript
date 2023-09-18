@@ -17,14 +17,14 @@ You can assign a top of the range for the simulations manually:
 
 ```sh
 ts-node src/index.ts --maxnumber 10000 --digitcount 1 \
-  --samplecount 5000 --minnumber 1
+  --samplesize 5000 --minnumber 1
 ```
 
 You can also generate a random number in a range with shuf, from coreutils library, or by any other random number generator. I would recommended you use random values for the top of the range, as the Benford's law applies on data of random ranges.
 
 ```sh
 ts-node src/index.ts --maxnumber $(shuf -i 10-100000 -n 1) \
-  --digitcount 1 --samplecount 5000 --minnumber 1
+  --digitcount 1 --samplesize 5000 --minnumber 1
 ```
 
 The expected output would be like the following:
@@ -46,7 +46,7 @@ If you want to get the generated sample, you may set optional `--debug` paramete
 ```sh
 ts-node src/index.ts --debug yes --maxnumber \
   $(shuf -i 10-100000 -n 1 | tee >(xargs echo "max=" 1>&2)) \
-  --digitcount 1 --samplecount 30 --minnumber 1
+  --digitcount 1 --samplesize 30 --minnumber 1
 ```
 
 Expected output:
@@ -74,7 +74,7 @@ You may generate output for the lead pair of digits as well, or any lead digit c
 ```sh
 $ ts-node src/index.ts --digitcount 2 --maxnumber \
   $(shuf -i 100-100000 -n 1) \
-  --samplecount 10000 --minnumber 1
+  --samplesize 10000 --minnumber 1
 
   10 | ==================== | 566
   11 | ==================== | 562
